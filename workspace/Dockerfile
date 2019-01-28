@@ -360,7 +360,8 @@ ARG INSTALL_PHPREDIS=false
 
 RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
     # Install Php Redis extension
-    printf "\n" | pecl -q install -o -f redis && \
+    curl -L -o /tmp/redis-4.2.0.tgz http://pecl.php.net/get/redis-4.2.0.tgz && \
+    pecl -q install -o -f /tmp/redis-4.2.0.tgz && \
     echo "extension=redis.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/redis.ini && \
     phpenmod redis \
 ;fi
