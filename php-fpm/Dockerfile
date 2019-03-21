@@ -87,6 +87,8 @@ ARG INSTALL_SOAP=false
 
 RUN if [ ${INSTALL_SOAP} = true ]; then \
     # Install the soap extension
+    sed -i 's/deb.debian.org/mirrors.163.com/g' /etc/apt/sources.list && \
+    apt-get update -yqq && \
     rm /etc/apt/preferences.d/no-debian-php && \
     apt-get -y install libxml2-dev php-soap && \
     docker-php-ext-install soap \
