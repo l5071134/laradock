@@ -1,0 +1,6 @@
+替换源
+RUN sed -i 's/http:\/\/archive\.ubuntu\.com\/ubuntu\//http:\/\/mirrors\.163\.com\/ubuntu\//g' /etc/apt/sources.list && \
+    apt-get update -yqq && \
+
+sed -i 's/deb.debian.org/mirrors.163.com/g' /etc/apt/sources.list && \
+    apt-get update -yqq && \
