@@ -26,7 +26,8 @@ ENV DEBIAN_FRONTEND noninteractive
 # always run apt update when start and after add new source list, then clean up at end.
 RUN apt-get update -yqq && \
     apt-get install -y apt-utils && \
-    pecl channel-update pecl.php.net
+    pecl channel-update https://pecl.php.net/channel.xml
+#    pecl channel-update pecl.php.net
 
 #
 #--------------------------------------------------------------------------
@@ -501,6 +502,8 @@ USER root
 ARG INSTALL_IMAGEMAGICK=false
 
 RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+    sed -i 's/deb.debian.org/mirrors.163.com/g' /etc/apt/sources.list && \
+    apt-get update -yqq && \
     apt-get install -y libmagickwand-dev imagemagick && \
     curl -L -o /tmp/imagick-3.4.3.tgz http://pecl.php.net/get/imagick-3.4.3.tgz && \
     pecl -q install -o -f /tmp/imagick-3.4.3.tgz && \
